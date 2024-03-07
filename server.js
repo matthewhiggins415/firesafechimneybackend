@@ -12,7 +12,8 @@ const auth = require('./lib/auth.js');
 const userRoutes = require('./routes/userRoutes');
 const contactRoutes = require('./routes/contactRoutes.js');
 const blogRoutes = require('./routes/blogRoutes.js');
-const serviceRoutes = require('./routes/serviceRoutes.js')
+const serviceRoutes = require('./routes/serviceRoutes.js');
+const emailRoutes = require('./routes/emailRoutes.js');
 
 dotenv.config();
 
@@ -82,6 +83,7 @@ app.use(userRoutes);
 app.use(contactRoutes);
 app.use(blogRoutes);
 app.use(serviceRoutes);
+app.use(emailRoutes);
 
 const port = process.env.PORT || 5000
 
