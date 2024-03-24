@@ -1,6 +1,9 @@
 const express = require('express');
 const Contact = require('../models/contactModel');
 const passport = require('passport');
+const dotenv = require("dotenv");
+dotenv.config();
+const nodemailer = require('nodemailer');
 
 // passing this as a second argument to `router.<verb>` will make it
 // so that a token MUST be passed for that route to be available
