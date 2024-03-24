@@ -14,7 +14,32 @@ router.post('/contact', async (req, res, next) => {
   console.log(req.body)
 
   try {
-    let newContact = await Contact.create(req.body)
+    let newContact = await Contact.create(req.body);
+
+    // send email 
+    let transporter = nodemailer.createTransport({
+      service: 'Gmail',
+      auth: {
+        user: process.env.GMAIL_EMAIL, // your Gmail address
+        pass: process.env.GMAIL_EMAIL_PW, // your Gmail password
+      }
+    });
+      
+    let mailOptions = {
+      from: process.env.GMAIL_EMAIL,
+      to: 'leboneck@gmail.com',
+      subject: 'new contact @ firesafechimneycare.com!',
+      text: `Hey there, someone wants to get in touch with you. Login to firesafechimneycare.com and check for new contacts.`
+    };
+  
+    transporter.sendMail(mailOptions, function (error, info) {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log('Email sent: ' + info.response);
+      }
+    });
+
     res.status(201).json({ contact: newContact })
   } catch(e) {
     res.status(500).json({ msg: 'Error creating contact'})
